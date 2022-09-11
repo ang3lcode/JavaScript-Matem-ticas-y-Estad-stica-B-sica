@@ -5,7 +5,21 @@ const pResult = document.querySelector('#result');
 
 btn.addEventListener('click', calcularPrecioConDescuento);
 
-const arrayUObjecto = undefined; // ['cupones': descuento] {}?
+// const arrayUObjecto = undefined; // ['cupones': descuento] {}?
+
+const couponsList = [];
+couponsList.push({
+  name: 'JuanDC_es_Batman',
+  discount: 30,
+});
+couponsList.push({
+  name: 'pero_es_un_secreto',
+  discount: 25,
+});
+couponsList.push({
+  name: 'no_le_digas_a_nadie',
+  discount: 15,
+});
 
 function calcularPrecioConDescuento() {
   const price = Number(inputPrice.value);
@@ -18,17 +32,24 @@ function calcularPrecioConDescuento() {
   
   let discount;
 
-  switch (coupon) {
-    case 'JuanDC_es_Batman':
-      discount = 30;
-      break;
-    case 'no_le_digas_a_nadie':
-      discount = 25;
-      break;
-    default:
-      pResult.innerText = 'El cupón no es válido';
-      return;
+  function isCouponInArray(couponElement) {// {name, discount}
+    return couponElement.name == coupon;
   }
+  const couponInArray = couponsList.find(isCouponInArray); // {}
+
+  if (couponInArray) {
+    discount = couponInArray.discount;
+  } else {
+    pResult.innerText = 'El cupón no es válido';
+    return;
+  }
+
+  console.log({
+    coupon, 
+    discount,
+    couponInArray,
+    couponsList,
+  });
   
   // if (coupon == 'JuanDC_es_Batman') {
   //   discount = 30;
