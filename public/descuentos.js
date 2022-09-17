@@ -9,7 +9,7 @@ btn.addEventListener('click', calcularPrecioConDescuento);
 
 const couponsList = [];
 couponsList.push({
-  name: 'JuanDC_es_Batman',
+  name: 'hola mama',
   discount: 30,
 });
 couponsList.push({
