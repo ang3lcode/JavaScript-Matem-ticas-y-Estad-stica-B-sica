@@ -4,6 +4,28 @@ function esPar(lista) {
 function esImpar(lista) {
     return lista.length % 2;
 }
+
+function calcularModa(lista) {
+    const listaCount = {};
+  
+    for (let i = 0; i < lista.length; i++) {
+      const elemento = lista[i];
+  
+      if (listaCount[elemento]) {
+        listaCount[elemento] += 1;
+      } else {
+        listaCount[elemento] = 1;
+      }
+    }
+  
+    const listaArray = Object.entries(listaCount);
+    const listaOrdenada = ordenarListaBidimensional(listaArray, 1)
+    const listaMaxNumber = listaOrdenada[listaOrdenada.length - 1];
+    const moda = listaMaxNumber[0];
+    // console.log({listaCount, listaArray, listaOrdenada, listaMaxNumber});
+    // console.log('La moda es: ' + listaMaxNumber[0]);
+    return moda;
+}
   
 function calcularMediana(lista) {
     const listaEsPar = esPar(lista);
@@ -77,4 +99,14 @@ function ordenarLista(listaDesordenada) {
     const lista = listaDesordenada.sort((a,b) => a-b);
     
     return lista;
+}
+
+  // [ [0,1],  [0,1],  [0,1] ]
+function ordenarListaBidimensional(listaDesordenada, i) {
+  function ordenarListaSort(valorAcumulado, nuevoValor) {
+    return valorAcumulado[i] - nuevoValor[i];
   }
+  
+  const lista = listaDesordenada.sort(ordenarListaSort);
+  return lista;
+}
