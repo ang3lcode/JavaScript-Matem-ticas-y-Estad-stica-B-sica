@@ -1,108 +1,86 @@
-function esPar(lista) {
-    return !(lista.length % 2);
-}
-function esImpar(lista) {
-    return lista.length % 2;
+// class PlatziMath {
+//   static esPar() {}
+//   static esImpar() {}
+//   static calcularMedian() {}
+// }
+
+const PlatziMath = {};
+
+PlatziMath.esPar = function esPar(lista) {
+  return !(lista.length % 2);
 }
 
-function calcularModa(lista) {
-    const listaCount = {};
-  
-    for (let i = 0; i < lista.length; i++) {
-      const elemento = lista[i];
-  
-      if (listaCount[elemento]) {
-        listaCount[elemento] += 1;
-      } else {
-        listaCount[elemento] = 1;
-      }
-    }
-  
-    const listaArray = Object.entries(listaCount);
-    const listaOrdenada = ordenarListaBidimensional(listaArray, 1)
-    const listaMaxNumber = listaOrdenada[listaOrdenada.length - 1];
-    const moda = listaMaxNumber[0];
-    // console.log({listaCount, listaArray, listaOrdenada, listaMaxNumber});
-    // console.log('La moda es: ' + listaMaxNumber[0]);
-    return moda;
+PlatziMath.esImpar = function esImpar(lista) {
+  return lista.length % 2;
 }
-  
-function calcularMediana(lista) {
-    const listaEsPar = esPar(lista);
-  
-    if (listaEsPar) {
-        const indexMitad1ListaPar = (lista.length / 2) - 1;
-        const indexMitad2ListaPar = lista.length / 2;
-        // const mitad1ListaPar = lista[(lista.length / 2) - 1];
-        // const mitad2ListaPar = lista[lista.length / 2];
-    
-        // lista[indexMitad1ListaPar] 
-        // lista[indexMitad2ListaPar] 
-        // [lista[indexMitad1ListaPar], lista[indexMitad2ListaPar]]
-        // const listaMitades = [mitad1ListaPar, mitad2ListaPar];
-    
-        const listaMitades = [];
-        listaMitades.push(lista[indexMitad1ListaPar]);
-        listaMitades.push(lista[indexMitad2ListaPar]);
-    
-        const medianaListaPar = calcularPromedio(listaMitades);
-        return medianaListaPar;
+
+PlatziMath.calcularModa = function calcularModa(lista) {
+  const listaCount = {};
+
+  for (let i = 0; i < lista.length; i++) {
+    const elemento = lista[i];
+
+    if (listaCount[elemento]) {
+      listaCount[elemento] += 1;
     } else {
-      const indexMitadListaImpar = Math.floor(lista.length / 2);
-      const medianaListaImpar = lista[indexMitadListaImpar];
-      console.log(indexMitadListaImpar);
-      console.log(medianaListaImpar);
-      return medianaListaImpar;
+      listaCount[elemento] = 1;
     }
+  }
+
+  const listaArray = Object.entries(listaCount);
+  const listaOrdenada = ordenarListaBidimensional(listaArray, 1)
+  const listaMaxNumber = listaOrdenada[listaOrdenada.length - 1];
+  const moda = listaMaxNumber[0];
+  // console.log({listaCount, listaArray, listaOrdenada, listaMaxNumber});
+  // console.log('La moda es: ' + listaMaxNumber[0]);
+  return moda;
 }
 
+PlatziMath.calcularMediana = function calcularMediana(listaDesordenada) {
+  const lista = PlatziMath.ordenarLista(listaDesordenada);
+  const listaEsPar = PlatziMath.esPar(lista);
 
-function calcularPromedio(lista) {
-    // let sumaLista = 0;
-    // for (let i = 0; i < lista.length; i++) {
-    //   sumaLista = sumaLista + lista[i];
-    // }
-    function sumarTodosElementos(valorAcumulado, nuevoValor) {
-        return valorAcumulado + nuevoValor;
-    }
+  if (listaEsPar) {
+    const indexMitad1ListaPar = (lista.length / 2) - 1;
+    const indexMitad2ListaPar = lista.length / 2;
+    const listaMitades = [];
+    listaMitades.push(lista[indexMitad1ListaPar]);
+    listaMitades.push(lista[indexMitad2ListaPar]);
 
-
-    // const ejemplo = (a, b) => a + b;
-    // const sumarTodosElementos =
-    //   (valorAcumulado, nuevoValor) => valorAcumulado + nuevoValor;
-    // const sumaLista = lista.reduce((a, b) => a + b);
-
-    const sumaLista = lista.reduce(sumarTodosElementos);
-    const promedio = sumaLista / lista.length;
-    console.log(promedio);
-    return promedio;
+    const medianaListaPar = PlatziMath.calcularPromedio(listaMitades);
+    return medianaListaPar;
+  } else {
+    const indexMitadListaImpar = Math.floor(lista.length / 2);
+    const medianaListaImpar = lista[indexMitadListaImpar];
+    console.log(indexMitadListaImpar);
+    console.log(medianaListaImpar);
+    return medianaListaImpar;
+  }
 }
 
-function ordenarLista(listaDesordenada) {
-    function ordenarListaSort(valorAcumulado, nuevoValor) {
-      // if (valorAcumulado > nuevoValor) {
-      //   return 1;
-      // } else if (valorAcumulado == nuevoValor) {
-      //   return 0;
-      // } else if (valorAcumulado < nuevoValor) {
-      //   return -1;
-      // }
+PlatziMath.calcularPromedio = function calcularPromedio(lista) {
+  function sumarTodosElementos(valorAcumulado, nuevoValor) {
+    return valorAcumulado + nuevoValor;
+  }
+
+  const sumaLista = lista.reduce(sumarTodosElementos);  
+  const promedio = sumaLista / lista.length;
+  // console.log(promedio);
+  return promedio;
+}
+
+PlatziMath.ordenarLista = function ordenarLista(listaDesordenada) {
+  function ordenarListaSort(valorAcumulado, nuevoValor) {
+    return valorAcumulado - nuevoValor;
+  }
   
-      return valorAcumulado - nuevoValor;
-      // return nuevoValor - valorAcumulado;
-      // return 5 - 10 -> -5;
-      // return 5 - 5 -> 0;
-      // return 10 - 5 -> 5;
-    }
-    
-    // const lista = listaDesordenada.sort(ordenarListaSort);
-    const lista = listaDesordenada.sort((a,b) => a-b);
-    
-    return lista;
+  // const lista = listaDesordenada.sort((a,b) => a-b);
+  const lista = listaDesordenada.sort(ordenarListaSort);
+  
+  return lista;
 }
 
-  // [ [0,1],  [0,1],  [0,1] ]
-function ordenarListaBidimensional(listaDesordenada, i) {
+PlatziMath.ordenarListaBidimensional = function ordenarListaBidimensional(listaDesordenada, i) {
   function ordenarListaSort(valorAcumulado, nuevoValor) {
     return valorAcumulado[i] - nuevoValor[i];
   }
