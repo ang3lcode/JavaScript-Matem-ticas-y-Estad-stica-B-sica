@@ -35,7 +35,6 @@ function calcularMediana(lista) {
 }
 
 
-
 function calcularPromedio(lista) {
     // let sumaLista = 0;
     // for (let i = 0; i < lista.length; i++) {
@@ -55,4 +54,27 @@ function calcularPromedio(lista) {
     const promedio = sumaLista / lista.length;
     console.log(promedio);
     return promedio;
+}
+
+function ordenarLista(listaDesordenada) {
+    function ordenarListaSort(valorAcumulado, nuevoValor) {
+      // if (valorAcumulado > nuevoValor) {
+      //   return 1;
+      // } else if (valorAcumulado == nuevoValor) {
+      //   return 0;
+      // } else if (valorAcumulado < nuevoValor) {
+      //   return -1;
+      // }
+  
+      return valorAcumulado - nuevoValor;
+      // return nuevoValor - valorAcumulado;
+      // return 5 - 10 -> -5;
+      // return 5 - 5 -> 0;
+      // return 10 - 5 -> 5;
+    }
+    
+    // const lista = listaDesordenada.sort(ordenarListaSort);
+    const lista = listaDesordenada.sort((a,b) => a-b);
+    
+    return lista;
   }
