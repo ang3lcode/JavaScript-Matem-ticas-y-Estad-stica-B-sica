@@ -121,3 +121,20 @@ function proyeccionPorEmpresa(nombre) {
         return nuevoMediana;
     }
 }
+let porcentajesCrecimiento = [];
+  
+for (let i = 1; i < listaMedianaYears.length; i++) {
+  const salarioActual = listaMedianaYears[i];
+  const salarioPasado = listaMedianaYears[i - 1];
+  const crecimiento = salarioActual - salarioPasado;
+  const porcentajeCrecimiento = crecimiento / salarioPasado;
+  porcentajesCrecimiento.push(porcentajeCrecimiento)
+}
+
+const medianaPorcentajesCrecimiento = PlatziMath.calcularMediana(porcentajesCrecimiento);
+
+const ultimaMediana = listaMedianaYears[listaMedianaYears.length - 1];
+const aumento = ultimaMediana * medianaPorcentajesCrecimiento;
+const nuevoMediana = ultimaMediana + aumento;
+
+return nuevoMediana;
